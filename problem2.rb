@@ -11,10 +11,10 @@
 class MyFibonacciClass
     def initialize(number_ceiling)
         @number_ceiling = number_ceiling
-        @lastNumber = 1
+        @lastNumber = 2
         @lastLastNumber = 1
-        @currentNumber = 0
-        @currentEvenSum = 0
+        @currentNumber = 3
+        @currentEvenSum = 2
     end
 
     def getCurrentEvenSum
@@ -29,11 +29,8 @@ class MyFibonacciClass
 
     def doDaFibonacci
         @currentNumber = @lastNumber + @lastLastNumber
-        puts @currentNumber
-        @lastNumber = @currentNumber
-        puts @lastNumber
         @lastLastNumber = @lastNumber
-        puts @lastLastNumber
+        @lastNumber = @currentNumber
         self.updateCurrentEvenSum()
 
         if @currentNumber < @number_ceiling
