@@ -11,37 +11,44 @@
 class MyFibonacciClass
     def initialize(number_ceiling)
         @number_ceiling = number_ceiling
-        @lastNumber = 2
+        @lastNumber = 1
         @lastLastNumber = 1
         @currentNumber = 0
-        @currentEvenSum = 2
+        @currentEvenSum = 0
+    end
+
+    def getCurrentEvenSum
+        return @currentEvenSum
     end
 
     def updateCurrentEvenSum
         if @currentNumber.even?
-            @currentEvenSum += @currentEvenSum
+            @currentEvenSum = @currentEvenSum + @currentNumber
         end 
     end
 
     def doDaFibonacci
         @currentNumber = @lastNumber + @lastLastNumber
+        puts @currentNumber
         @lastNumber = @currentNumber
+        puts @lastNumber
         @lastLastNumber = @lastNumber
-        self.updateCurrentEvenSum
-    end
+        puts @lastLastNumber
+        self.updateCurrentEvenSum()
 
-    def fibonacciXTimes
-        $n = 0
-        while $n < @number_ceiling do
-            self.doDaFibonacci
-            $n ++
-        end 
-        puts @currentEvenSum
+        if @currentNumber < @number_ceiling
+            self.doDaFibonacci()
+        else
+            return false
+        end
     end
-
 end
 
 $d = MyFibonacciClass.new(4000000)
-puts $d.fibonacciXTimes
+$d.doDaFibonacci()
+puts $d.getCurrentEvenSum()
+
+
+
 
 
