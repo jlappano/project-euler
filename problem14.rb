@@ -32,39 +32,52 @@ class Sequencer
     end
 
     def sequenceNumber(n)
+
         sequence = Array.new()
+        #store original parameter
         ogn = n
+
+        #until the sequence ends in 1
         until n <= 1 do
-            # if @chainIndex[n] != nil
-            #     return sequence << @chainIndex[n]
-            # else
+
+            #if the current number ends in an already finished sequence
+            #append that array to the current sequence and return it
+            if @chainIndex[n] != nil                
+                sequence = sequence + @chainIndex[n]
+
+                self.checkSequenceLength(sequence.length, ogn)
+                return sequence
+
+            #if the current number has no sequence, manually calculate the next number
+            else        
                 if n%2 == 0
                     n = self.evenSequence(n)
                 else
                     n = self.oddSequence(n)
                 end
                 sequence << n
-            # end
+                self.checkSequenceLength(sequence.length, ogn)
+            end
         end
-        # @chainIndex[ogn] = sequence
-
-        if sequence.length > @longestChainLength
-            @longestChainIndex = {ogn => sequence.length}
-
-            # @longestChainIndex[ogn] = sequence
-            @longestChainLength = sequence.length
-        end
-
+        #once a new full sequence has been calculated, store it for later reference
+        @chainIndex[ogn] = sequence
         return sequence
     end
 
+    def checkSequenceLength(length, key)
+        if length > @longestChainLength
+            @longestChainIndex = {key => length}
+            @longestChainLength = length
+        end
+    end
+
     def findLongestChain(upperBound)
-        while upperBound > 1 do
-            self.sequenceNumber(upperBound)
-            upperBound -= 1
+        x = 0
+        until x >= upperBound do 
+            self.sequenceNumber(x)
+            x += 1
         end
         p @longestChainIndex
-        # p @chainIndex
     end
 end
 
